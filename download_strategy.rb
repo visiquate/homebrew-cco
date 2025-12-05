@@ -5,9 +5,10 @@
 # private GitHub release assets. The gh CLI handles authentication
 # using the user's GitHub credentials.
 
-class GitHubCliDownloadStrategy < CurlDownloadStrategy
+class GitHubCliDownloadStrategy < AbstractDownloadStrategy
   def initialize(url, name, version, **meta)
     super
+    @url = url
     parse_url
   end
 
@@ -40,8 +41,14 @@ class GitHubCliDownloadStrategy < CurlDownloadStrategy
       raise "GitHub CLI is not authenticated. Run: gh auth login"
     end
 
-    # Create temporary directory for download
-    FileUtils.mkdir_p(temporary_path.dirname)
+    # Create cache directory
+    FileUtils.mkdir_p(cached_location.dirname)
+
+    # Skip download if already cached
+    if cached_location.exist?
+      ohai "Already downloaded: #{cached_location}"
+      return
+    end
 
     # Create a unique temp directory for the download
     temp_download_dir = Dir.mktmpdir("homebrew-gh-download")
@@ -62,19 +69,27 @@ class GitHubCliDownloadStrategy < CurlDownloadStrategy
       raise "Failed to download #{@filename} from #{@owner}/#{@repo}"
     end
 
-    # Find the downloaded file and move it to the expected location
+    # Find the downloaded file and move it to the cached location
     downloaded_file = File.join(temp_download_dir, @filename)
     unless File.exist?(downloaded_file)
       FileUtils.rm_rf(temp_download_dir)
       raise "Downloaded file not found at #{downloaded_file}"
     end
 
-    # Move to the location Homebrew expects (temporary_path is where it goes during download)
-    FileUtils.mv(downloaded_file, temporary_path)
+    # Move to the cache location
+    FileUtils.mv(downloaded_file, cached_location)
     FileUtils.rm_rf(temp_download_dir)
   end
 
+  def cached_location
+    @cached_location ||= HOMEBREW_CACHE/"downloads"/cache_filename
+  end
+
+  def cache_filename
+    "#{Digest::SHA256.hexdigest(@url)}--#{@filename}"
+  end
+
   def clear_cache
-    super
+    cached_location.unlink if cached_location.exist?
   end
 end
