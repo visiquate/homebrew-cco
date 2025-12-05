@@ -26,13 +26,17 @@ class GitHubCliDownloadStrategy < CurlDownloadStrategy
   def fetch(timeout: nil)
     ohai "Downloading #{@filename} from #{@owner}/#{@repo} using GitHub CLI"
 
-    # Check if gh is installed
-    unless which("gh")
+    # Check if gh is installed (search common paths)
+    gh_paths = ["/opt/homebrew/bin/gh", "/usr/local/bin/gh", "/usr/bin/gh"]
+    gh_path = gh_paths.find { |p| File.exist?(p) } || `which gh 2>/dev/null`.strip
+    gh_path = nil if gh_path.empty?
+
+    unless gh_path && File.executable?(gh_path)
       raise "GitHub CLI (gh) is required but not installed. Install with: brew install gh"
     end
 
     # Check if gh is authenticated
-    unless system("gh", "auth", "status", out: File::NULL, err: File::NULL)
+    unless system(gh_path, "auth", "status", out: File::NULL, err: File::NULL)
       raise "GitHub CLI is not authenticated. Run: gh auth login"
     end
 
@@ -48,9 +52,9 @@ class GitHubCliDownloadStrategy < CurlDownloadStrategy
       "--clobber"
     ]
 
-    ohai "Running: gh #{args.join(' ')}"
+    ohai "Running: #{gh_path} #{args.join(' ')}"
 
-    unless system("gh", *args)
+    unless system(gh_path, *args)
       raise "Failed to download #{@filename} from #{@owner}/#{@repo}"
     end
 
