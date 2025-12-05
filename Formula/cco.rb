@@ -22,11 +22,11 @@ class Cco < Formula
   if OS.mac? && Hardware::CPU.arm?
     url "https://github.com/visiquate/cco/releases/download/v2025.12.5/cco-aarch64-apple-darwin.tar.gz",
         using: GitHubCliDownloadStrategy
-    sha256 "e1eddb91631528de43b1c7f6bf9f0e3e7e450b9e0cd491de7e59e4596c3aa724"
+    sha256 "28f94691dcf3ff6862ca22ef79e79c0e8d458ebd742303eb0a0562765ffc2533"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/visiquate/cco/releases/download/v2025.12.5/cco-x86_64-unknown-linux-gnu.tar.gz",
         using: GitHubCliDownloadStrategy
-    sha256 "22b4e0ba7b54ed98eb863f4198e556def6cca2f5ee267ed717aa1cec2bab7fca"
+    sha256 "06d00171161fb7ae668457d6e62f5f296121fc19b41e4b1ad718ca3da085156a"
   end
 
   # Dependencies
