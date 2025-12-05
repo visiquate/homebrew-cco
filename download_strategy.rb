@@ -43,28 +43,35 @@ class GitHubCliDownloadStrategy < CurlDownloadStrategy
     # Create temporary directory for download
     FileUtils.mkdir_p(temporary_path.dirname)
 
-    # Download using gh release download
+    # Create a unique temp directory for the download
+    temp_download_dir = Dir.mktmpdir("homebrew-gh-download")
+
+    # Download using gh release download to temp dir
     args = [
       "release", "download", @tag,
       "-R", "#{@owner}/#{@repo}",
       "--pattern", @filename,
-      "-D", temporary_path.dirname.to_s,
+      "-D", temp_download_dir,
       "--clobber"
     ]
 
     ohai "Running: #{gh_path} #{args.join(' ')}"
 
     unless system(gh_path, *args)
+      FileUtils.rm_rf(temp_download_dir)
       raise "Failed to download #{@filename} from #{@owner}/#{@repo}"
     end
 
-    # Move downloaded file to expected location
-    downloaded_file = temporary_path.dirname.join(@filename)
-    unless downloaded_file.exist?
+    # Find the downloaded file and move it to the expected location
+    downloaded_file = File.join(temp_download_dir, @filename)
+    unless File.exist?(downloaded_file)
+      FileUtils.rm_rf(temp_download_dir)
       raise "Downloaded file not found at #{downloaded_file}"
     end
 
+    # Move to the location Homebrew expects (temporary_path is where it goes during download)
     FileUtils.mv(downloaded_file, temporary_path)
+    FileUtils.rm_rf(temp_download_dir)
   end
 
   def clear_cache
