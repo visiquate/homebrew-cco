@@ -31,7 +31,8 @@ class Cco < Formula
 
   # Dependencies
   depends_on "gh" => :build  # GitHub CLI for downloading from private releases
-  depends_on cask: "claude-code"  # Claude Code CLI (required for CCO to function)
+  # Note: Claude Code CLI is recommended but installed separately via:
+  #   brew install --cask claude-code
 
   def install
     bin.install "cco"
@@ -60,6 +61,9 @@ class Cco < Formula
 
       Start the daemon with:
         cco daemon start
+
+      For full functionality, install Claude Code CLI:
+        brew install --cask claude-code
 
       For more information, see:
         https://github.com/visiquate/cco
