@@ -31,6 +31,7 @@ class Cco < Formula
 
   # Dependencies
   depends_on "gh" => :build  # GitHub CLI for downloading from private releases
+  depends_on cask: "claude-code"  # Claude Code CLI (required for CCO to function)
 
   def install
     bin.install "cco"
