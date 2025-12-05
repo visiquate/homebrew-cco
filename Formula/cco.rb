@@ -23,10 +23,6 @@ class Cco < Formula
     url "https://github.com/visiquate/cco/releases/download/v2025.12.4/cco-aarch64-apple-darwin.tar.gz",
         using: GitHubCliDownloadStrategy
     sha256 "PLACEHOLDER_SHA256_ARM64_DARWIN"
-  elsif OS.mac? && Hardware::CPU.intel?
-    url "https://github.com/visiquate/cco/releases/download/v2025.12.4/cco-x86_64-apple-darwin.tar.gz",
-        using: GitHubCliDownloadStrategy
-    sha256 "PLACEHOLDER_SHA256_X86_64_DARWIN"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/visiquate/cco/releases/download/v2025.12.4/cco-x86_64-unknown-linux-gnu.tar.gz",
         using: GitHubCliDownloadStrategy
