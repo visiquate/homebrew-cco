@@ -3,7 +3,7 @@
 #
 # Installation:
 #   brew tap visiquate/cco
-#   brew install visiquate/cco/cco
+#   brew install cco
 
 class Cco < Formula
   desc "Claude Code Orchestrator - Multi-agent development system"
@@ -48,6 +48,9 @@ class Cco < Formula
 
       Start the daemon with:
         cco daemon start
+
+      Upgrade with:
+        brew upgrade cco
 
       For full functionality, install Claude Code CLI:
         brew install --cask claude-code
