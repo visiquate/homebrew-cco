@@ -14,19 +14,19 @@ require_relative "../download_strategy"
 class Cco < Formula
   desc "Claude Code Orchestrator - Multi-agent development system"
   homepage "https://github.com/visiquate/cco"
-  version "2025.12.6"
+  version "2025.12.17"
   license :cannot_represent  # Proprietary
 
   # Platform-specific binary URLs
   # SHA256 values will be updated by CI after each release
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/visiquate/cco/releases/download/v2025.12.6/cco-aarch64-apple-darwin.tar.gz",
+    url "https://github.com/visiquate/cco/releases/download/v2025.12.17/cco-aarch64-apple-darwin.tar.gz",
         using: GitHubCliDownloadStrategy
-    sha256 "c25ffda77e13acd3739bf7a7555c38eb25bf1f89a313141bb5674906000de5e8"
+    sha256 "652992dcb4a44b5568fadc12d38a6f570c04b3344355e7d04cc4d1f2868bc541"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/visiquate/cco/releases/download/v2025.12.6/cco-x86_64-unknown-linux-gnu.tar.gz",
+    url "https://github.com/visiquate/cco/releases/download/v2025.12.17/cco-x86_64-unknown-linux-gnu.tar.gz",
         using: GitHubCliDownloadStrategy
-    sha256 "c04cc1b2568518f475fe99a9a38de4e32cd81556949af7d56f23e75eceb63019"
+    sha256 "91167a4d8141a3d651d601a195fb1b427ce68ad7834e08e6ac8d9bb468e96c07"
   end
 
   # Dependencies
