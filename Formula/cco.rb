@@ -13,7 +13,7 @@ class Cco < Formula
   homepage "https://github.com/visiquate/cco"
   version "2025.12.28"
   license :cannot_represent  # Proprietary
-
+ 
   # Platform-specific binary URLs
   # SHA256 values will be updated by CI after each release
   if OS.mac? && Hardware::CPU.arm?
@@ -23,6 +23,7 @@ class Cco < Formula
     url "https://github.com/visiquate/cco/releases/download/v2025.12.28/cco-x86_64-unknown-linux-gnu.tar.gz"
     sha256 "730dfe0888d24a403a86736d15f18ffc0bab2e6341bd6b38b79b7b5602f1022a"
   end
+
 
   def install
     # Initially install to Homebrew's bin directory
