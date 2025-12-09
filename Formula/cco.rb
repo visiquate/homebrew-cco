@@ -18,10 +18,10 @@ class Cco < Formula
   # SHA256 values will be updated by CI after each release
   if OS.mac? && Hardware::CPU.arm?
     url "https://github.com/visiquate/cco/releases/download/v2025.12.29/cco-aarch64-apple-darwin.tar.gz"
-    sha256 "738fa7b78fddcb453382196171d342d99d132b1395d86a5cc180125413c427f8"
+    sha256 "14d5fe4286155ee0bbc1f3c3170f193eac02a6231505948eb3949282d75d0aa4"
   elsif OS.linux? && Hardware::CPU.intel?
     url "https://github.com/visiquate/cco/releases/download/v2025.12.29/cco-x86_64-unknown-linux-gnu.tar.gz"
-    sha256 "f44835c3a55e86bf04f334cba4a7c72c2390e2e34d654573780333b1c7296943"
+    sha256 "a0ab3834c9d55f36addbafda07bede85611c9f6253db17d533ba1ad4fd5d1b81"
   end
 
 
