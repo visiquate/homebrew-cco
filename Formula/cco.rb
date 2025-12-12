@@ -11,17 +11,17 @@
 class Cco < Formula
   desc "Claude Code Orchestrator - Multi-agent development system"
   homepage "https://github.com/visiquate/cco"
-  version "2025.12.44"
+  version "2025.12.45"
   license :cannot_represent  # Proprietary
  
   # Platform-specific binary URLs
   # SHA256 values will be updated by CI after each release
   if OS.mac? && Hardware::CPU.arm?
-    url "https://github.com/visiquate/cco/releases/download/v2025.12.44/cco-aarch64-apple-darwin.tar.gz"
-    sha256 "dc82e8195c738a144c30856af1e56ba3797f0ab286d331bcf8073706809241c4"
+    url "https://github.com/visiquate/cco/releases/download/v2025.12.45/cco-aarch64-apple-darwin.tar.gz"
+    sha256 "65df5427c5878dae1c8a94734c4c41b349bf283473903c0e9f831e9fc9722f09"
   elsif OS.linux? && Hardware::CPU.intel?
-    url "https://github.com/visiquate/cco/releases/download/v2025.12.44/cco-x86_64-unknown-linux-gnu.tar.gz"
-    sha256 "c44f880ca6bf19803e8b3221af7d63352880902f2ab0f5bf685d3bdc6765c7b0"
+    url "https://github.com/visiquate/cco/releases/download/v2025.12.45/cco-x86_64-unknown-linux-gnu.tar.gz"
+    sha256 "cca56eb559ee9e0a6da41e656afde35785cce6e1d727f81c322691cc5d3ce459"
   end
 
 
